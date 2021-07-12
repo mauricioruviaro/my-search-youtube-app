@@ -17,7 +17,13 @@ class HomeScreen extends Component {
             {name}
           </nav>
         </header>
-        {loading ? <p>Loading videos</p> : <div>{ videos[0].items.map((video, index) => <p key={ index }>{video.snippet.title}</p>) }</div>
+        {loading ? <p>Loading videos</p> : <div>{ videos[0].items.map((video, index) => (
+          <div key={ index }>
+            <img src={video.snippet.thumbnails.medium.url} alt={ video.snippet.title }/>
+            <h5>{video.snippet.title}</h5>
+            {/* <iframe src={`https://youtube.com/embed/${video.id.videoId}`} title={ video.snippet.title } width="300px" height="150px"></iframe> */}
+          </div>
+        )) }</div>
         }
       </main>
     );
