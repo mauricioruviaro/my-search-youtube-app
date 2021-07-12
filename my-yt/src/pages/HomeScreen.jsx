@@ -8,22 +8,31 @@ class HomeScreen extends Component {
     getVideos()
   }
   render() {
-    const { name, loading } = this.props;
+    const { name, loading, videos } = this.props;
     return (
-      loading ? <>Loading</> : <>Não loading</>
+      <main>
+        <header>
+          <p>YT LOGO</p>
+          <nav>
+            {name}
+          </nav>
+        </header>
+        {loading ? <p>Loading videos</p> : <div>{ videos[0].items.map((video, index) => <p key={ index }>{video.snippet.title}</p>) }</div>
+        }
+      </main>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  getVideos: (search) => dispatch(getYoutubeVideos(search))
+});
 
 const mapStateToProps = (state) => ({
   name: state.user.name,
   loading: state.videos.loading,
   videos: state.videos.videos,
   error: state.videos.error,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  getVideos: (search) => dispatch(getYoutubeVideos(search))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)

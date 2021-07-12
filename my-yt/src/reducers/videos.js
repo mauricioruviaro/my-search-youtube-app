@@ -6,7 +6,7 @@ import {
 
 const INITIAL_STATE = {
   videos: [],
-  loading: false,
+  loading: true,
   error: '',
 };
 
@@ -20,7 +20,7 @@ function videosReducer(state = INITIAL_STATE, action) {
   case REQUEST_SUCESS:
     return {
       ...state,
-      videos: action.payload,
+      videos: [action.payload],
       loading: false,
     };
   case REQUEST_FAIL:

@@ -23,7 +23,7 @@ export const requestFail = (payload) => ({
   payload,
 });
 
-export const getYoutubeVideos = (search = null) => (dispatch) => {
+export const getYoutubeVideos = (search = '') => (dispatch) => {
   dispatch(requestVideos());
   return fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${ search }&key=AIzaSyDybMeNva3xGJcCEanrhayjO-czW5bA2dY`)
     .then((response) => response.json())
