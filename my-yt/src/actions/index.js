@@ -8,3 +8,25 @@ export const sendLoginInformation = (name, password) => ({
   name,
   password,
 });
+
+export const requestVideos = () => ({
+  type: REQUESTING,
+})
+
+export const requestSucess = (payload) => ({
+  type: REQUEST_SUCESS,
+  payload,
+});
+
+export const requestFail = (payload) => ({
+  type: REQUEST_FAIL,
+  payload,
+});
+
+export const getYoutubeVideos = (search = null) => (dispatch) => {
+  dispatch(requestVideos());
+  return fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${ search }&key=AIzaSyDybMeNva3xGJcCEanrhayjO-czW5bA2dY`)
+    .then((response) => response.json())
+    .then((data) => dispatch(requestSucess(data)))
+    .catch((error) => dispatch(requestFail(error)));
+};

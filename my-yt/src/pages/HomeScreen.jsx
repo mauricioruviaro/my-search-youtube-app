@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { getYoutubeVideos } from '../actions'
 
 class HomeScreen extends Component {
+  componentDidMount() {
+    const { getVideos } = this.props;
+    getVideos()
+  }
   render() {
-    const { name } = this.props;
+    const { name, loading } = this.props;
     return (
-      <div>
-        {`bem vindo ${ name }`}
-      </div>
+      loading ? <>Loading</> : <>Não loading</>
     );
   }
 }
@@ -19,4 +22,8 @@ const mapStateToProps = (state) => ({
   error: state.videos.error,
 });
 
-export default connect(mapStateToProps)(HomeScreen)
+const mapDispatchToProps = (dispatch) => ({
+  getVideos: (search) => dispatch(getYoutubeVideos(search))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
