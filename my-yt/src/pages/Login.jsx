@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { sendLoginInformation } from '../actions';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor() {
     super()
     
@@ -20,6 +22,7 @@ export default class Login extends Component {
   
   render() {
     const { name, password } = this.state;
+    const { sendLoginInformation } = this.props;
     return (
       <div>
         <input
@@ -36,10 +39,21 @@ export default class Login extends Component {
           placeholder="Digite sua senha"
           value={ password }
           />
-        <Link to="/home">
-          <button type="button">Entrar</button>
+        <Link to="/home" >
+          <button
+            type="button"
+            onClick={ () => sendLoginInformation(name, password) }
+          >
+            Entrar
+          </button>
         </Link>
       </div>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  sendLoginInformation: (name, password) => dispatch(sendLoginInformation(name, password)),
+})
+
+export default connect(null, mapDispatchToProps)(Login);
