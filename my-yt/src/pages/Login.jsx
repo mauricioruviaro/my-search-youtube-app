@@ -15,7 +15,7 @@ export default class Login extends Component {
     const { name, value } = target;
     this.setState({
       [name]: value,
-    })
+    });
   }
   
   render() {
